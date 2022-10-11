@@ -5,3 +5,21 @@
   webhook:
     id: 28cbd130-472d-494d-adc6-e38fd62067e7
     host: https://ifttt.power.li
+- host: fazzfinancial.group
+  alias:
+    - xfers-nessus
+  webhook:
+    id: 79d499e5-79dc-40fd-afae-960a2d3fc68c
+    host: https://ifttt.fazzfinancial.group
+- host: fazzfinancial.group
+  alias:
+    - ntt-nessus
+  webhook:
+    id: f54677ca-1e74-4df2-963a-70647628fe6b
+    host: https://ifttt.fazzfinancial.group
+- host: fazzfinancial.group
+  alias:
+    - dci-nessus
+  webhook:
+    id: 331b2b52-8c48-4c21-854c-699bc62e6e6b
+    host: https://ifttt.fazzfinancial.group

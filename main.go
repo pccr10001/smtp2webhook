@@ -43,12 +43,13 @@ func mailHandler(origin net.Addr, from string, to []string, data []byte) error {
 			for _, alias := range a.Alias {
 				if t[0] == alias && t[1] == a.Host {
 					account = &a
-					break
+					goto found
 				}
 			}
 		}
 	}
 
+found:
 	if account == nil {
 		return nil
 	}
