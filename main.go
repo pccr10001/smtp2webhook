@@ -2,16 +2,14 @@ package main
 
 import (
 	"bytes"
-	"github.com/DusanKasan/parsemail"
+	"github.com/cention-sany/go.enmime"
+	"github.com/cention-sany/net/mail"
 	"github.com/google/uuid"
 	"github.com/mhale/smtpd"
-	"golang.org/x/net/html/charset"
 	"gopkg.in/h2non/gentleman.v2"
 	"gopkg.in/yaml.v3"
-	"io"
 	"io/ioutil"
 	"log"
-	"mime"
 	"net"
 	"net/url"
 	"strings"
@@ -19,25 +17,10 @@ import (
 
 var accounts []Account
 
-func decode(text string) string {
-	CharsetReader := func(label string, input io.Reader) (io.Reader, error) {
-		label = strings.Replace(label, "windows-", "cp", -1)
-		encoding, _ := charset.Lookup(label)
-		return encoding.NewDecoder().Reader(input), nil
-	}
-	dec := mime.WordDecoder{CharsetReader: CharsetReader}
-
-	header, err := dec.DecodeHeader(text)
-
-	if err != nil {
-		return text
-	}
-	return header
-}
-
 func mailHandler(origin net.Addr, from string, to []string, data []byte) error {
-	msg, _ := parsemail.Parse(bytes.NewReader(data))
-	subject := decode(msg.Header.Get("Subject"))
+	msg, _ := mail.ReadMessage(bytes.NewReader(data))
+	mime, _ := enmime.ParseMIMEBody(msg)
+	subject := mime.GetHeader("Subject")
 
 	log.Printf("Received mail from %s for %s with subject %s", from, to[0], subject)
 
@@ -81,9 +64,9 @@ func mailHandler(origin net.Addr, from string, to []string, data []byte) error {
 	go gentleman.New().
 		Post().
 		URL(uri).
-		AddQuery("subject", url.QueryEscape(decode(subject))).
+		AddQuery("subject", url.QueryEscape(subject)).
 		AddHeader("Content-Type", "text/plain").
-		BodyString(msg.HTMLBody).
+		BodyString(mime.HTML).
 		Do()
 
 	log.Printf("Webhook emitted, %s %s", account.Webhook.Host, account.Webhook.Id)

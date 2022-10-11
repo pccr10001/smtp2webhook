@@ -1,7 +1,7 @@
 - alias:
-    - hello
+    - alice
   isTest: true
-  host: example.com
+  host: fazzfinancial.group
   webhook:
-    id: 00000000-0000-0000-0000-0000000000
-    host: https://n8n.example.com
+    id: 28cbd130-472d-494d-adc6-e38fd62067e7
+    host: https://ifttt.power.li
