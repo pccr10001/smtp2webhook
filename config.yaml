@@ -1,0 +1,7 @@
+- alias:
+    - hello
+  isTest: true
+  host: example.com
+  webhook:
+    id: 00000000-0000-0000-0000-0000000000
+    host: https://n8n.example.com
