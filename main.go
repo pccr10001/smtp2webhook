@@ -53,17 +53,17 @@ func mailHandler(origin net.Addr, from string, to []string, data []byte) error {
 		return nil
 	}
 
-	uri := account.Webhook.Host
-	if account.IsTest {
-		uri += "/webhook-test/"
-	} else {
-		uri += "/webhook/"
-	}
-	uri += account.Webhook.Id
+	go gentleman.New().
+		Post().
+		URL(account.Webhook.Host+"/webhook-test/"+account.Webhook.Id).
+		AddQuery("subject", url.QueryEscape(subject)).
+		AddHeader("Content-Type", "text/plain").
+		BodyString(mime.HTML).
+		Do()
 
 	go gentleman.New().
 		Post().
-		URL(uri).
+		URL(account.Webhook.Host+"/webhook/"+account.Webhook.Id).
 		AddQuery("subject", url.QueryEscape(subject)).
 		AddHeader("Content-Type", "text/plain").
 		BodyString(mime.HTML).
