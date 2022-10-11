@@ -65,7 +65,8 @@ func mailHandler(origin net.Addr, from string, to []string, data []byte) error {
 			}
 		}
 	}
-	if accounts == nil {
+
+	if account == nil {
 		return nil
 	}
 
