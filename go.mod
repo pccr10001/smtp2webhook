@@ -6,6 +6,7 @@ require (
 	github.com/cention-sany/go.enmime v0.0.0-20201106071208-88a344d546c9
 	github.com/google/uuid v1.3.0
 	github.com/mhale/smtpd v0.8.0
+	golang.org/x/net v0.0.0-20221004154528-8021a29435af
 	gopkg.in/h2non/gentleman.v2 v2.0.5
 	gopkg.in/yaml.v3 v3.0.1
 )
